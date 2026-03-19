@@ -1,0 +1,215 @@
+---
+title: How I Built a Rust CSV Profiler for Very Large Data Files
+description: A personal, field-tested story from a real project where I built a Rust engine to profile massive CSV files before ingestion.
+date: 2026-03-19
+author: Ivan Lilla
+readingTime: 12 min read
+tags: [Rust, Data Engineering, CSV, Performance, CLI]
+---
+
+## Context: why I built this
+
+I built this profiler during a project where users were uploading CSV files before data ingestion.  
+On paper, the requirement sounded simple: "show a fast profile of columns and detect obvious data issues."
+
+In reality, the files were all over the place:
+
+- Different encodings.
+- Different delimiters.
+- Mixed number formats.
+- Inconsistent date formats.
+- Sometimes very large files that made naive approaches fail.
+
+My first prototypes worked for small clean samples, then broke in production-like inputs.  
+That was the moment I decided to build a dedicated Rust CLI (`fileguard`) focused on one thing: robust profiling in a single streaming pass.
+
+## What had to be true in production
+
+I defined a few non-negotiable constraints:
+
+- No full-file load in memory.
+- Deterministic behavior on messy data.
+- Fast enough to feel interactive.
+- JSON output that downstream services could parse safely.
+
+This drove every technical choice in the implementation.
+
+## The CLI I ended up with
+
+I kept the interface intentionally small:
+
+```rust
+#[derive(Parser, Debug)]
+#[command(name = "fileguard", version, about = "CSV profiling engine (Rust)")]
+struct Cli {
+    #[command(subcommand)]
+    cmd: Cmd,
+}
+
+#[derive(Subcommand, Debug)]
+enum Cmd {
+    Profile(ProfileArgs),
+}
+
+#[derive(Parser, Debug)]
+struct ProfileArgs {
+    file: PathBuf,
+
+    #[arg(long, default_value = "upload.csv")]
+    filename: String,
+
+    /// delimiter override (one char: ; , \t |)
+    #[arg(long)]
+    delimiter: Option<String>,
+
+    /// progress log every N rows
+    #[arg(long, default_value_t = 200_000)]
+    progress_every: usize,
+}
+```
+
+In practice, this was enough flexibility for operations while still keeping behavior predictable.
+
+## Lesson 1: streaming is not optional for heavy files
+
+The most important architectural decision was single-pass streaming.
+
+```rust
+for rec in rdr.records() {
+    match rec {
+        Ok(record) => {
+            rows += 1;
+            for (i, raw) in record.iter().enumerate() {
+                if let Some(c) = cols.get_mut(i) {
+                    observe_value(c, raw);
+                }
+            }
+
+            if args.progress_every > 0 && (rows as usize) % args.progress_every == 0 {
+                println!("⏳ {} rows processed...", rows);
+            }
+        }
+        Err(_) => {
+            parse_errors += 1;
+        }
+    }
+}
+```
+
+This changed everything:
+
+- Memory usage stayed bounded by column state, not row count.
+- I could process huge files without redesigning the pipeline each time.
+- Error handling stayed local (bad rows increment a counter, processing continues).
+
+## Lesson 2: encoding and delimiter bugs are real production bugs
+
+I quickly learned that assuming UTF-8 + comma separator is optimistic.
+
+So I added two pre-parse steps:
+
+1. **Encoding sniffing**: BOM-aware UTF-8, UTF-8 validation, then fallback to `WINDOWS_1252`.
+2. **Delimiter sniffing**: evaluate `;`, tab, `|`, `,` on a sample and score candidates.
+
+That eliminated many "cannot parse CSV" incidents without involving users.
+
+## Lesson 3: exact distinct counts do not scale
+
+For columns like IDs and emails, exact cardinality tracking can become expensive fast.  
+I used a hybrid strategy:
+
+- Keep exact uniques only while the set is tiny.
+- Switch to HyperLogLogPlus once the column clearly has high cardinality.
+
+```rust
+if !c.uniques_overflow {
+    c.small_uniques.insert(t.to_string());
+    if c.small_uniques.len() > 10 {
+        c.uniques_overflow = true;
+        c.small_uniques.clear(); // free memory
+    }
+}
+c.hll.insert(t);
+```
+
+For profiling, this trade-off was perfect: small memory footprint, strong practical signal.
+
+## Lesson 4: locale-aware number parsing is mandatory
+
+In this project, numeric columns looked like:
+
+- `1 234,56`
+- `1,234.56`
+- `(1234.56)`
+
+I wrote `parse_number_loose` to normalize aggressively before parsing:
+
+- Remove spaces and non-breaking spaces.
+- Strip non-numeric noise.
+- Resolve decimal separator by heuristic based on symbol positions.
+
+Without this, numeric inference was unstable. With it, type detection became much more trustworthy.
+
+## Lesson 5: date parsing needs business-aware safeguards
+
+Dates were another pain point: mixed formats, 2-digit years, and odd edge cases.
+
+I added:
+
+- Multi-format parsing attempts.
+- Two-digit year normalization with a pivot.
+- Birth-date plausibility checks (future dates, impossible ages, invalid ranges).
+
+Those extra checks reduced false positives and made the output usable for real data quality decisions.
+
+## How I handled type inference
+
+I chose a simple transparent rule:
+
+- `date` if valid-date ratio among non-empty values is `>= 0.6`
+- else `number` if valid-number ratio is `>= 0.6`
+- else `string`
+
+```rust
+let inferred = if ratio_date >= 0.6 {
+    "date"
+} else if ratio_num >= 0.6 {
+    "number"
+} else {
+    "string"
+};
+```
+
+I preferred this over complex classifiers because teams could understand and validate it quickly.
+
+## Output contract that worked well with existing systems
+
+The profiler prints logs for humans and wraps JSON results with explicit markers:
+
+```rust
+println!("===JSON_RESULT_START===");
+println!("{}", serde_json::to_string(payload)?);
+println!("===JSON_RESULT_END===");
+```
+
+This made integration easy with existing workers and parsers that already consumed plain stdout.
+
+## What I would improve next
+
+If I extend this project further, I would prioritize:
+
+- Keeping an exact mini-set for `distinctValues` when cardinality stays low.
+- Precompiling and reusing regexes more aggressively in hot paths.
+- Adding optional benchmark mode (rows/s, memory snapshots, parse error classes).
+- Introducing typed output confidence per column.
+
+## Final take
+
+This project reminded me that "large file processing" is mostly about disciplined engineering:
+
+- Stream by default.
+- Be realistic about dirty input.
+- Approximate where exactness is too expensive.
+- Keep output deterministic for downstream automation.
+
+Rust gave me the control and safety I needed to make this reliable in production-like conditions, not just in local demos.

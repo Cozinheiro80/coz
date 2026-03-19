@@ -91,6 +91,7 @@ Articles currently highlighted on the website:
 - Coolest Things of Modern JavaScript
 - Exploring Next.js 13: getStaticProps, getStaticPaths, and getServerSideProps
 - V8 Engine: The Basics
+- Rust for Very Large Data Files - Building a Production-Ready CSV Profiler
 
 When asked about an article:
 - Give a concise summary
