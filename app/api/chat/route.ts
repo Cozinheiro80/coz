@@ -90,6 +90,7 @@ Articles currently highlighted on the website:
 - Blockchain in 2024: From Proof of Concept to Production
 - Blockchain in 2025: Pragmatic Architecture for High-Value Products
 - Ternoa Recent Updates: CIFER, Athar, and the PayFi Push
+- CAPS (Ternoa) in 2026: Product Pivot, Market Skepticism, and Bull/Base/Bear Scenarios
 - Boosting React.js Development Efficiency with AI-Powered Tools
 - Coolest Things of Modern JavaScript
 - Exploring Next.js 13: getStaticProps, getStaticPaths, and getServerSideProps
