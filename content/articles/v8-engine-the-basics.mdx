@@ -1,0 +1,48 @@
+---
+title: V8 Engine: The Basics
+description: Node.js runs on Chrome's V8 JavaScript engine, enabling scalable and real-time server-side applications.
+date: 2023-02-12
+author: Ivan Lilla
+readingTime: 8 min read
+tags: [Node.js, V8, JavaScript Runtime, Performance]
+---
+
+![v8Engine NodeJs](/articles/nodejs.jpg)
+
+## The Basics of V8 Engine
+
+The V8 engine is a high-performance JavaScript engine developed by Google for use in Chrome. It was later adopted as the foundation of Node.js. V8 compiles JavaScript into machine code before execution, which makes it faster than traditional JavaScript engines that only interpret code at runtime.
+
+One of V8's key features is its Just-In-Time (JIT) compiler. The JIT compiler optimizes frequently used code paths at runtime, significantly improving performance. V8 also uses garbage collection to handle memory allocation and deallocation, reducing the risk of memory leaks.
+
+## How Node.js Uses the V8 Engine
+
+Node.js uses V8 to execute JavaScript on the server side. When a Node.js application starts, it creates a single main thread running the event loop. The event loop allows Node.js to handle I/O operations asynchronously without blocking the main thread.
+
+When Node.js receives a request, it triggers an event added to the event queue. The event loop picks the next event and executes it. If the event involves I/O, Node.js delegates it to the underlying operating system asynchronously. Once the I/O completes, the callback is queued and later executed by the event loop.
+
+V8 is responsible for executing the JavaScript associated with each event. When V8 encounters a function call, it compiles and executes it efficiently. If the flow includes blocking I/O, the work is delegated so the event loop can continue processing other events.
+
+## How It Works in Practice
+
+The Node.js + V8 model can be summarized like this:
+
+1. A Node.js application starts and initializes the event loop.
+2. Incoming requests are added to the event queue.
+3. The event loop retrieves and executes events one by one.
+4. I/O tasks are delegated asynchronously to the operating system.
+5. Completed I/O tasks schedule callbacks back into the event queue.
+6. V8 compiles and executes JavaScript handlers tied to those callbacks.
+7. Hot code paths are optimized over time for better performance.
+
+This architecture is one of the reasons Node.js can handle large numbers of concurrent connections efficiently.
+
+## Optimizations in Node.js and V8
+
+Node.js and V8 include several optimizations:
+
+- **Cluster module**: allows Node.js to leverage multiple CPU cores by spawning worker processes.
+- **Hidden classes**: V8 optimizes property access for objects that share the same structure.
+- **JIT optimization pipelines**: hot paths are recompiled into optimized machine code.
+
+These mechanisms help improve throughput, reduce latency, and keep applications responsive under load.

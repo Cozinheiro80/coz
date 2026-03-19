@@ -1,0 +1,65 @@
+---
+title: Coolest Things of Modern JavaScript
+description: Over the years, JavaScript has evolved significantly with powerful features that help build better and more efficient applications.
+date: 2021-03-14
+author: Ivan Lilla
+readingTime: 6 min read
+tags: [JavaScript, ES6+, Async/Await, Frontend]
+---
+
+![modern js](/articles/modern_js.png)
+
+JavaScript is a dynamic, high-level programming language widely used for building web applications. Over the years, JavaScript has evolved significantly, and with the release of newer versions, developers now have access to many powerful features that help create better and more efficient applications.
+
+Here are some of the coolest features of modern JavaScript:
+
+## 1. Async/await
+
+Async/await is a modern way to write asynchronous code in JavaScript. It makes code easier to read and understand, and it simplifies handling asynchronous operations. Async/await is built on top of promises and offers a more intuitive syntax for working with them.
+
+```javascript
+async function fetchData() {
+  const response = await fetch("https://example.com/data");
+  const data = await response.json();
+  return data;
+}
+
+fetchData().then((data) => {
+  console.log(data);
+});
+```
+
+## 2. Arrow functions
+
+Arrow functions are a shorthand way to write functions in JavaScript. They provide concise syntax and can improve readability. They also use lexical scoping for `this`, meaning they inherit `this` from the surrounding context.
+
+```javascript
+const add = (a, b) => a + b;
+
+const result = add(2, 3);
+console.log(result); // Output: 5
+```
+
+## 3. Template literals
+
+Template literals are a way to write strings that allow embedded expressions. They are often more readable than traditional string concatenation and help reduce boilerplate.
+
+```javascript
+const name = "Ivan";
+const age = 30;
+const message = `My name is ${name} and I am ${age} years old.`;
+console.log(message); // Output: 'My name is Ivan and I am 30 years old.'
+```
+
+## 4. Spread operator
+
+The spread operator allows you to expand an iterable, such as an array or string, into individual elements. It can be used in many ways and makes code more flexible and concise.
+
+```javascript
+const arr1 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+const mergedArr = [...arr1, ...arr2];
+console.log(mergedArr); // Output: [1, 2, 3, 4, 5, 6]
+```
+
+Modern JavaScript includes many powerful features that help developers write code that is cleaner, more efficient, and easier to maintain. By leveraging these capabilities, teams can build robust and scalable applications that evolve more smoothly over time.

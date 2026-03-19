@@ -1,0 +1,168 @@
+---
+title: "Exploring Next.js 13: getStaticProps, getStaticPaths, and getServerSideProps"
+description: getStaticProps, getStaticPaths, and getServerSideProps are key for data fetching and pre-rendering in Next.js applications.
+date: 2023-06-07
+author: Ivan Lilla
+readingTime: 10 min read
+tags: [Next.js, Data Fetching, SSG, SSR, getStaticProps]
+---
+
+![NextJs](/articles/nextjs.webp)
+
+## Exploring Next.js 13: getStaticProps, getStaticPaths, and getServerSideProps
+
+`getStaticProps`, `getStaticPaths`, and `getServerSideProps` play a key role in fetching and pre-rendering data in Next.js applications. By using these features effectively, you can improve both performance and user experience.
+
+## 1. Optimize pre-rendered pages (`getStaticProps`)
+
+Introduced in Next.js 9, `getStaticProps` lets you fetch data at build time and generate pages as static HTML. This can significantly improve loading speed and scalability.
+
+`getStaticProps` fetches data from an API or database and returns it as props to a page component. Since the HTML is generated at build time, users receive pages that are ready to render immediately.
+
+```javascript
+// pages/blog.ts
+
+interface BlogProps {
+  posts: Post[];
+}
+
+interface Post {
+  id: number;
+  title: string;
+  content: string;
+}
+
+const Blog: React.FC<BlogProps> = ({ posts }) => {
+  return (
+    <div>
+      {posts.map((post) => (
+        <div key={post.id}>
+          <h2>{post.title}</h2>
+          <p>{post.content}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export async function getStaticProps() {
+  const response = await fetch("https://api.example.com/posts");
+  const posts = await response.json();
+
+  return {
+    props: {
+      posts,
+    },
+  };
+}
+
+export default Blog;
+```
+
+## 2. Dynamic routes made easy (`getStaticPaths`)
+
+`getStaticPaths` is especially useful for dynamic routes. It allows you to generate all path variants at build time from external data.
+
+By combining `getStaticPaths` with `getStaticProps`, Next.js can pre-render every known route and serve fast static HTML for each one.
+
+```javascript
+// pages/blog/[slug].ts
+import { GetStaticPaths, GetStaticProps } from "next";
+
+interface BlogPostProps {
+  post: Post;
+}
+
+interface Post {
+  id: number;
+  slug: string;
+  title: string;
+  content: string;
+}
+
+const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
+  return (
+    <div>
+      <h2>{post.title}</h2>
+      <p>{post.content}</p>
+    </div>
+  );
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const response = await fetch("https://api.example.com/posts");
+  const posts: Post[] = await response.json();
+
+  const paths = posts.map((post) => ({
+    params: { slug: post.slug },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps<BlogPostProps> = async ({
+  params,
+}) => {
+  const response = await fetch(`https://api.example.com/posts/${params?.slug}`);
+  const post: Post = await response.json();
+
+  return {
+    props: {
+      post,
+    },
+  };
+};
+
+export default BlogPost;
+```
+
+## 3. On-demand server-side rendering (`getServerSideProps`)
+
+When data is highly dynamic, user-specific, or must always be fresh, `getServerSideProps` is often the right choice.
+
+With this approach, data is fetched on every request and rendered on the server before being returned to the client.
+
+```javascript
+// pages/profile.ts
+
+import { GetServerSideProps } from "next";
+
+interface ProfileProps {
+  user: User;
+}
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+const Profile: React.FC<ProfileProps> = ({ user }) => {
+  return (
+    <div>
+      <h2>{user.name}</h2>
+      <p>Email: {user.email}</p>
+    </div>
+  );
+};
+
+export const getServerSideProps: GetServerSideProps<ProfileProps> = async () => {
+  const response = await fetch("https://api.example.com/user");
+  const user: User = await response.json();
+
+  return {
+    props: {
+      user,
+    },
+  };
+};
+
+export default Profile;
+```
+
+## Conclusion
+
+`getStaticProps`, `getStaticPaths`, and `getServerSideProps` remain foundational concepts for data fetching in Next.js. Choosing the right strategy for each page helps you balance performance, freshness, and flexibility in your application architecture.
