@@ -9,7 +9,6 @@ import {
   Mail,
   Linkedin,
   X,
-  FileText,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { USER_CONFIG } from "../utils/config";
@@ -97,7 +96,8 @@ const Sidebar = ({
     { id: "projects", label: "Projects", icon: MonitorPlay, href: "/projects" },
     { id: "articles", label: "Articles", icon: MessageSquare, href: "/articles" },
     { id: "stack", label: "Tech Stack", icon: Layers, href: "/stack" },
-    { id: "cv", label: "Resume", icon: FileText, href: "/cv" },
+    // TEMP: Resume section hidden in production
+    // { id: "cv", label: "Resume", icon: FileText, href: "/cv" },
   ];
 
   return (
