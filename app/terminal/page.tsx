@@ -7,9 +7,8 @@ import {
   type SubmitEventHandler,
   type ReactNode,
 } from "react";
-import { ArrowRight, FileText } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import ReactMarkdown from "react-markdown";
-import PdfViewer from "../components/PdfViewer";
 import { useTheme } from "../components/theme-context";
 
 type HistoryEntry = {
@@ -45,7 +44,6 @@ const TerminalPage = () => {
   ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
-  const [showPdf, setShowPdf] = useState(false);
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -82,7 +80,7 @@ const TerminalPage = () => {
 
     if (usage.count >= MAX_MESSAGES) {
       return {
-        text: "[SYSTEM] ⚠️ Daily request limit reached. To prevent abuse, my energy is exhausted for today. Please come back tomorrow.\nYou can open my resume directly below:",
+        text: "[SYSTEM] ⚠️ Daily request limit reached. To prevent abuse, my energy is exhausted for today. Please come back tomorrow.",
         isRateLimit: true,
       };
     }
@@ -99,7 +97,7 @@ const TerminalPage = () => {
 
       if (response.status === 429) {
         return {
-          text: "[SYSTEM] ⚠️ Daily request limit reached. To prevent abuse, my energy is exhausted for today. Please come back tomorrow.\nYou can open my resume directly below:",
+          text: "[SYSTEM] ⚠️ Daily request limit reached. To prevent abuse, my energy is exhausted for today. Please come back tomorrow.",
           isRateLimit: true,
         };
       }
@@ -163,8 +161,6 @@ const TerminalPage = () => {
 
   return (
     <>
-      {showPdf && <PdfViewer theme={theme} onClose={() => setShowPdf(false)} />}
-
       {/* Container principal Terminal avec overflow-x-hidden */}
       <div
         className={`flex flex-col h-full font-mono text-sm md:text-base p-2 rounded-lg relative overflow-hidden w-full ${
@@ -327,49 +323,7 @@ const TerminalPage = () => {
                     {line.content}
                   </ReactMarkdown>
 
-                  {/* Bouton spécial si Rate Limit atteint */}
-                  {line.isRateLimit && (
-                    <button
-                      onClick={() => setShowPdf(true)}
-                      className={`mt-4 group flex items-center gap-3 px-4 py-3 rounded-lg transition-all w-full md:w-auto cursor-pointer border ${
-                        isDark
-                          ? "bg-blue-900/30 border-cyan-500/50 hover:bg-blue-900/50"
-                          : "bg-indigo-50 border-indigo-300 hover:bg-indigo-100"
-                      }`}
-                    >
-                      <div
-                        className={`p-2 rounded-lg group-hover:scale-110 transition-transform ${
-                          isDark
-                            ? "bg-blue-500/20 text-cyan-400"
-                            : "bg-indigo-200/70 text-indigo-700"
-                        }`}
-                      >
-                        <FileText size={24} />
-                      </div>
-                      <div className="text-left">
-                        <div
-                          className={`font-bold text-sm ${
-                            isDark ? "text-lime-300" : "text-indigo-700"
-                          }`}
-                        >
-                          Emergency Access
-                        </div>
-                        <div
-                          className={`text-xs ${
-                            isDark ? "text-cyan-200/70" : "text-indigo-500"
-                          }`}
-                        >
-                          Open Resume
-                        </div>
-                      </div>
-                      <ArrowRight
-                        size={16}
-                        className={`ml-auto group-hover:translate-x-1 transition-transform ${
-                          isDark ? "text-blue-400" : "text-indigo-500"
-                        }`}
-                      />
-                    </button>
-                  )}
+                  {/* TEMP: Resume CTA hidden in production */}
                 </div>
               )}
             </div>

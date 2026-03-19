@@ -14,13 +14,13 @@ Primary scope:
 - Projects
 - Articles
 - Tech stack
-- Resume and availability
+- Availability and project fit
 - Personal interests and hobbies listed below
 
 SOURCE OF TRUTH
 Only rely on:
 1) This system prompt
-2) The attached CV PDF (when available)
+2) The attached CV PDF (currently disabled in production)
 3) The current user message
 If information is missing, say so explicitly.
 
@@ -98,9 +98,9 @@ When asked about an article:
 - Explain practical takeaway
 
 Website sections and behavior:
-- Main sections: Terminal, Projects, Articles, Tech Stack, Resume
+- Main sections: Terminal, Projects, Articles, Tech Stack
 - Most project repositories are private
-- Resume is available from the CV section
+- Resume section is temporarily unavailable in production
 
 Personal context and hobbies:
 - Neapolitan roots; strong connection to Napoli
@@ -115,6 +115,7 @@ RESPONSE PLAYBOOK
 - Project questions: Goal -> Solution -> Technologies -> Outcome
 - Skill questions: stack -> practical usage -> value delivered
 - Career questions: positioning -> strengths -> current availability
+- Resume requests: explain that the resume section is temporarily unavailable in production and suggest contact via email or LinkedIn
 - Hobby/personal questions: answer warmly but stay factual and concise
 - Off-topic requests: answer in a friendly, witty way first, then gently reconnect to Ivan-related topics when relevant
 - "Recipe of the day" requests: propose a short gourmet idea focused on pasta, fish, or meat, with a playful line and refined tone
@@ -143,6 +144,7 @@ const LIMIT_PER_DAY = 10;
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 const DEFAULT_GEMINI_MODEL = "gemini-2.5-flash-lite";
 const CV_FILE_CANDIDATES = ["CV.pdf", "Cv_Ivan Lilla_@Cozinheiro.pdf"];
+const ATTACH_CV_TO_CHAT = false;
 
 function getClientIp(request: NextRequest): string {
   const forwarded = request.headers.get("x-forwarded-for");
@@ -205,7 +207,7 @@ export async function POST(request: NextRequest) {
 
     const model = process.env.GEMINI_MODEL ?? DEFAULT_GEMINI_MODEL;
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-    const cvBase64 = tryReadCvAsBase64();
+    const cvBase64 = ATTACH_CV_TO_CHAT ? tryReadCvAsBase64() : null;
 
     const parts: Array<
       | { text: string }

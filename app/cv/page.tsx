@@ -4,10 +4,35 @@ import { Download, FileText } from "lucide-react";
 import { useTheme } from "../components/theme-context";
 
 const CV_PDF_PATH = "/Cv_Ivan Lilla_@Cozinheiro.pdf";
+const RESUME_ENABLED = false;
 
 const CvPage = () => {
   const { theme } = useTheme();
   const isDark = theme === "dark";
+
+  if (!RESUME_ENABLED) {
+    return (
+      <section className="h-full animate-in fade-in duration-500 slide-in-from-bottom-4">
+        <div
+          className={`w-full h-full rounded-xl border flex items-center justify-center p-6 text-center ${
+            isDark
+              ? "bg-slate-900/70 border-slate-700 text-slate-200"
+              : "bg-white/90 border-slate-200 text-slate-700"
+          }`}
+        >
+          <div className="max-w-xl">
+            <h2 className="text-lg md:text-xl font-bold mb-2">
+              Resume section temporarily unavailable
+            </h2>
+            <p className={isDark ? "text-slate-400" : "text-slate-600"}>
+              This section is hidden for now in production. Please use the contact
+              details in the sidebar for direct requests.
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="h-full animate-in fade-in duration-500 slide-in-from-bottom-4">
