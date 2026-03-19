@@ -1,0 +1,122 @@
+---
+title: Blockchain in 2024: From Proof of Concept to Production
+description: What changed when blockchain projects moved from demos to real product delivery, based on practical engineering decisions.
+date: 2024-05-28
+author: Ivan Lilla
+readingTime: 9 min read
+tags: [Blockchain, Smart Contracts, Product Engineering, Web3, Architecture]
+---
+
+![Blockchain 2024](/articles/blockchain-2024-production.svg)
+
+## Why 2024 felt different
+
+In 2024, I noticed a major shift in blockchain work: less hype, more accountability.  
+Stakeholders were no longer asking for "a blockchain feature." They were asking for measurable product value.
+
+In project discussions, the key questions became:
+
+- Will this reduce operational friction?
+- Will this improve trust and traceability?
+- Can we run it safely in production without exploding costs?
+
+That change in mindset forced better engineering.
+
+## The main lesson: stop designing chain-first
+
+One mistake I saw repeatedly in early blockchain projects was designing from the chain outward.  
+In 2024, I moved to a different approach: design the business workflow first, then decide what must be on-chain.
+
+My rule of thumb became:
+
+- Put verification-critical facts on-chain.
+- Keep high-volume operational data off-chain.
+- Link both worlds with deterministic IDs and reproducible hashing.
+
+This gave us auditability without making every transaction expensive.
+
+## Smart contracts: minimal surface, explicit responsibility
+
+Contracts that try to do too much become hard to reason about and harder to secure.  
+In production-facing work, I started splitting responsibilities clearly:
+
+- Core contract for invariant business logic.
+- Access-control contract for roles and permissions.
+- Upgrade/governance boundary with strict process controls.
+
+The outcome was not just cleaner code. It also made audits faster and incident response clearer.
+
+## Off-chain indexing is part of the product, not an afterthought
+
+Another practical lesson from 2024: blockchain data alone is not enough for a good product experience.
+
+Users need:
+
+- Fast filtering and search.
+- Human-readable timelines.
+- Domain-oriented views, not raw event logs.
+
+So we treated indexing pipelines as first-class components. Events from contracts were normalized and persisted in query-friendly structures. This kept UX fast while preserving verifiable links to on-chain truth.
+
+## Gas and cost strategy must be visible early
+
+Cost issues are architecture issues. If you discover gas bottlenecks too late, redesign is painful.
+
+What worked well:
+
+- Batch operations where domain rules allowed it.
+- Keep storage writes minimal and intentional.
+- Use events for analytics and history, not redundant state.
+- Benchmark representative business flows before release.
+
+This turned "cost surprises" into planned trade-offs.
+
+## Security became a daily practice, not a phase
+
+In 2024, the strongest teams I worked with stopped treating security as a final checklist.  
+We embedded it in the delivery rhythm:
+
+- Threat modeling during design.
+- Unit tests for invariants.
+- Property-based and fuzz tests for edge behavior.
+- Peer review focused on permissioning and replay vectors.
+
+The biggest win was cultural: security became part of normal development, not a blocker at the end.
+
+## UX for non-crypto users
+
+A lot of products still fail at onboarding because they assume users understand wallets, signatures, and gas.  
+In production contexts, that assumption does not hold.
+
+What made adoption easier:
+
+- Progressive disclosure of blockchain complexity.
+- Clear transaction intent before signing.
+- Better error messages when signatures fail or time out.
+- Recovery guidance that users can actually follow.
+
+If users need a tutorial for every action, the architecture is not the only problem.
+
+## What 2024 taught me about value
+
+The most successful blockchain features I saw in 2024 had one thing in common: they solved expensive trust problems.
+
+Good candidates were workflows where:
+
+- Multiple parties needed shared, tamper-resistant evidence.
+- Audit trails were mandatory.
+- Manual reconciliation consumed too much time.
+
+When those conditions were absent, conventional architectures were often better.
+
+## Final take
+
+For me, 2024 confirmed a simple principle: blockchain is strongest when used as a trust layer, not as an all-in platform.
+
+The projects that worked best were pragmatic:
+
+- Precise on-chain scope.
+- Strong off-chain product architecture.
+- Cost and security engineered from day one.
+
+That is where blockchain delivery moved from "interesting demo" to real production value.

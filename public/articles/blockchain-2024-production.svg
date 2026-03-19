@@ -1,0 +1,35 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg2024" x1="0" y1="0" x2="1600" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1220"/>
+      <stop offset="1" stop-color="#1E3A8A"/>
+    </linearGradient>
+    <linearGradient id="accent2024" x1="320" y1="180" x2="1280" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22D3EE"/>
+      <stop offset="1" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg2024)"/>
+  <circle cx="250" cy="190" r="180" fill="#1E40AF" fill-opacity="0.28"/>
+  <circle cx="1360" cy="760" r="240" fill="#0EA5E9" fill-opacity="0.18"/>
+  <g stroke="url(#accent2024)" stroke-width="14" stroke-linecap="round" opacity="0.9">
+    <path d="M360 520H590"/>
+    <path d="M760 520H990"/>
+  </g>
+  <g fill="#111827" stroke="url(#accent2024)" stroke-width="10">
+    <rect x="270" y="430" width="180" height="180" rx="34"/>
+    <rect x="560" y="430" width="180" height="180" rx="34"/>
+    <rect x="850" y="430" width="180" height="180" rx="34"/>
+    <rect x="1140" y="430" width="180" height="180" rx="34"/>
+  </g>
+  <text x="120" y="190" fill="#A5F3FC" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="58" font-weight="700" letter-spacing="2">
+    BLOCKCHAIN 2024
+  </text>
+  <text x="120" y="260" fill="#E2E8F0" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="38" font-weight="500">
+    From POC to Production
+  </text>
+  <text x="120" y="330" fill="#BFDBFE" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="28">
+    Practical architecture, measurable value, real delivery
+  </text>
+</svg>
+

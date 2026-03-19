@@ -1,0 +1,45 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgRust" x1="0" y1="0" x2="1600" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1F2937"/>
+      <stop offset="1" stop-color="#7C2D12"/>
+    </linearGradient>
+    <linearGradient id="accentRust" x1="320" y1="320" x2="1280" y2="760" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FB923C"/>
+      <stop offset="1" stop-color="#F97316"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bgRust)"/>
+  <circle cx="1450" cy="140" r="190" fill="#EA580C" fill-opacity="0.22"/>
+  <circle cx="180" cy="760" r="210" fill="#F59E0B" fill-opacity="0.18"/>
+  <rect x="280" y="360" width="1040" height="380" rx="28" fill="#111827" stroke="#FDBA74" stroke-width="8"/>
+  <g opacity="0.4" stroke="#9CA3AF" stroke-width="2">
+    <path d="M360 420H1240"/>
+    <path d="M360 490H1240"/>
+    <path d="M360 560H1240"/>
+    <path d="M360 630H1240"/>
+    <path d="M360 700H1240"/>
+    <path d="M480 390V710"/>
+    <path d="M640 390V710"/>
+    <path d="M800 390V710"/>
+    <path d="M960 390V710"/>
+    <path d="M1120 390V710"/>
+  </g>
+  <g fill="url(#accentRust)">
+    <rect x="420" y="610" width="90" height="100" rx="12"/>
+    <rect x="560" y="550" width="90" height="160" rx="12"/>
+    <rect x="700" y="500" width="90" height="210" rx="12"/>
+    <rect x="840" y="445" width="90" height="265" rx="12"/>
+    <rect x="980" y="385" width="90" height="325" rx="12"/>
+  </g>
+  <text x="120" y="180" fill="#FED7AA" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="56" font-weight="700" letter-spacing="2">
+    RUST DATA ENGINEERING
+  </text>
+  <text x="120" y="248" fill="#FFF7ED" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="38" font-weight="500">
+    Very Large CSV Files and Streaming Profiling
+  </text>
+  <text x="120" y="312" fill="#FDBA74" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="28">
+    Memory-safe, deterministic, production-focused
+  </text>
+</svg>
+
