@@ -148,99 +148,110 @@ const StatusBar = ({ theme }: StatusBarProps) => {
           : "bg-white/85 border-slate-200 text-slate-500"
       }`}
     >
-    <div className="flex gap-4 items-center">
-      <div
-        className={`flex items-center gap-1.5 cursor-pointer transition-colors ${
-          isDark
-            ? "text-blue-400 hover:text-blue-300"
-            : "text-indigo-600 hover:text-indigo-500"
-        }`}
-      >
-        <GitBranch size={10} />
-        <span>main</span>
-      </div>
-      <div
-        className={`hidden sm:flex items-center gap-1.5 cursor-pointer transition-colors ${
-          isDark ? "hover:text-green-400" : "hover:text-emerald-600"
-        }`}
-      >
-        <CheckCircle size={10} />
-        <span>0 errors</span>
-      </div>
-      <div
-        className={`hidden sm:flex items-center gap-1.5 cursor-pointer transition-colors ${
-          isDark ? "hover:text-green-400" : "hover:text-emerald-600"
-        }`}
-      >
-        <Wifi size={10} />
-        <span>Online</span>
-      </div>
-    </div>
-
-    <div className="flex gap-4 items-center">
-      {/* Logos Tech Stack */}
-      <div
-        className={`hidden md:flex items-center gap-2 border-r pr-4 mr-2 ${
-          isDark ? "border-slate-800" : "border-slate-300"
-        }`}
-      >
+      <div className="flex gap-4 items-center">
         <div
-          className={`flex items-center gap-1.5 transition-colors cursor-help ${
-            isDark ? "hover:text-slate-300 text-slate-300" : "hover:text-slate-900 text-slate-700"
-          }`}
-          title="Next.js"
-        >
-          <NextLogo /> <span>Next.js</span>
-        </div>
-        <div
-          className={`flex items-center gap-1.5 transition-colors cursor-help ${
-            isDark ? "hover:text-slate-300" : "hover:text-slate-900 text-slate-700"
-          }`}
-          title="React.js"
-        >
-          <ReactLogo /> <span>React</span>
-        </div>
-        <div
-          className={`flex items-center gap-1.5 transition-colors cursor-help ${
-            isDark ? "hover:text-slate-300" : "hover:text-slate-900 text-slate-700"
-          }`}
-          title="Node.js"
-        >
-          <NodeLogo /> <span>Node</span>
-        </div>
-        <div
-          className={`flex items-center gap-1.5 transition-colors cursor-help ${
-            isDark ? "hover:text-slate-300" : "hover:text-slate-900 text-slate-700"
-          }`}
-          title="Tailwind CSS"
-        >
-          <TailwindLogo /> <span>Tailwind</span>
-        </div>
-        <div
-          className={`flex items-center gap-1.5 transition-colors cursor-help ${
+          className={`flex items-center gap-1.5 cursor-pointer transition-colors ${
             isDark
-              ? "hover:text-slate-300 text-white"
-              : "hover:text-slate-900 text-slate-800"
+              ? "text-blue-400 hover:text-blue-300"
+              : "text-indigo-600 hover:text-indigo-500"
           }`}
-          title="Hosted on Vercel"
         >
-          <VercelLogo /> <span>Vercel</span>
+          <GitBranch size={10} />
+          <span>main</span>
+        </div>
+        <div
+          className={`hidden sm:flex items-center gap-1.5 cursor-pointer transition-colors ${
+            isDark ? "hover:text-green-400" : "hover:text-emerald-600"
+          }`}
+        >
+          <CheckCircle size={10} />
+          <span>0 errors</span>
+        </div>
+        <div
+          className={`hidden sm:flex items-center gap-1.5 cursor-pointer transition-colors ${
+            isDark ? "hover:text-green-400" : "hover:text-emerald-600"
+          }`}
+        >
+          <Wifi size={10} />
+          <span>Online</span>
         </div>
       </div>
 
-      <div
-        className={`flex items-center gap-1.5 ${
-          isDark ? "text-slate-400" : "text-slate-600"
-        }`}
-      >
-        <span className="hidden sm:inline">Made with</span>
-        <Heart size={10} className="text-red-500 fill-red-500 animate-pulse" />
-        <span className="hidden sm:inline">by Cozinheiro</span>
+      <div className="flex gap-4 items-center">
+        {/* Logos Tech Stack */}
+        <div
+          className={`hidden md:flex items-center gap-2 border-r pr-4 mr-2 ${
+            isDark ? "border-slate-800" : "border-slate-300"
+          }`}
+        >
+          <div
+            className={`flex items-center gap-1.5 transition-colors cursor-help ${
+              isDark
+                ? "hover:text-slate-300 text-slate-300"
+                : "hover:text-slate-900 text-slate-700"
+            }`}
+            title="Next.js"
+          >
+            <NextLogo /> <span>Next.js</span>
+          </div>
+          <div
+            className={`flex items-center gap-1.5 transition-colors cursor-help ${
+              isDark
+                ? "hover:text-slate-300"
+                : "hover:text-slate-900 text-slate-700"
+            }`}
+            title="React.js"
+          >
+            <ReactLogo /> <span>React</span>
+          </div>
+          <div
+            className={`flex items-center gap-1.5 transition-colors cursor-help ${
+              isDark
+                ? "hover:text-slate-300"
+                : "hover:text-slate-900 text-slate-700"
+            }`}
+            title="Node.js"
+          >
+            <NodeLogo /> <span>Node</span>
+          </div>
+          <div
+            className={`flex items-center gap-1.5 transition-colors cursor-help ${
+              isDark
+                ? "hover:text-slate-300"
+                : "hover:text-slate-900 text-slate-700"
+            }`}
+            title="Tailwind CSS"
+          >
+            <TailwindLogo /> <span>Tailwind</span>
+          </div>
+          <div
+            className={`flex items-center gap-1.5 transition-colors cursor-help ${
+              isDark
+                ? "hover:text-slate-300 text-white"
+                : "hover:text-slate-900 text-slate-800"
+            }`}
+            title="Hosted on Vercel"
+          >
+            <VercelLogo /> <span>Vercel</span>
+          </div>
+        </div>
+
+        <div
+          className={`flex items-center gap-1.5 ${
+            isDark ? "text-slate-400" : "text-slate-600"
+          }`}
+        >
+          <span className="hidden sm:inline">Made with</span>
+          <Heart
+            size={10}
+            className="text-red-500 fill-red-500 animate-pulse"
+          />
+          <span className="hidden sm:inline">by Cozinheiro80</span>
+        </div>
+        <span className={isDark ? "text-slate-600" : "text-slate-500"}>
+          © {new Date().getFullYear()}
+        </span>
       </div>
-      <span className={isDark ? "text-slate-600" : "text-slate-500"}>
-        © {new Date().getFullYear()}
-      </span>
-    </div>
     </footer>
   );
 };
