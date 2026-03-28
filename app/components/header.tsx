@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Menu, MessageCircle, Moon, Sun } from "lucide-react";
+import { Menu, MessageCircle } from "lucide-react";
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { USER_CONFIG } from "../utils/config";
 
 type Theme = "dark" | "light";
@@ -115,8 +116,9 @@ const Header = ({
         </div>
 
         {/* Bouton Theme */}
-        <button
-          onClick={onToggleTheme}
+        <AnimatedThemeToggler
+          isDark={isDark}
+          onToggle={onToggleTheme}
           className={`w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full border transition-all active:scale-95 ${
             isDark
               ? "bg-slate-800/80 border-slate-700/50 text-amber-300 hover:bg-slate-700"
@@ -128,9 +130,7 @@ const Header = ({
               : "Switch to dark mode"
           }
           title={isDark ? "Light mode" : "Dark mode"}
-        >
-          {isDark ? <Sun size={18} /> : <Moon size={18} />}
-        </button>
+        />
 
         {/* Bouton Chat (Mobile) */}
         <button
