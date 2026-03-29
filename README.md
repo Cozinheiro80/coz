@@ -29,7 +29,7 @@ Ce README explique de façon complète comment installer, configurer, lancer et 
 ### Fonctionnalités principales
 
 - Interface portfolio “OS/terminal” responsive.
-- Chat IA (route API `POST /api/chat`) branché sur Gemini.
+- Chat IA (route API `POST /api/chat`) branché sur ChatGPT (OpenAI).
 - Pages principales:
   - `/terminal`
   - `/projects`
@@ -63,20 +63,19 @@ Ensuite, configure les variables d’environnement (section suivante), puis lanc
 
 ## 4) Variables d’environnement
 
-Le chat IA a besoin d’une clé API Gemini.
+Le chat IA a besoin d’une clé API OpenAI.
 
 Crée un fichier `.env.local` à la racine:
 
 ```bash
-GEMINI_API_KEY=your_google_ai_studio_key
-GEMINI_MODEL=gemini-2.5-flash-lite
+OPENAI_API_KEY=your_openai_api_key
+OPENAI_MODEL=gpt-4o-mini
 ```
 
 Notes importantes:
 
-- `GEMINI_API_KEY` est prioritaire.
-- `GOOGLE_API_KEY` est aussi supporté en fallback.
-- `GEMINI_MODEL` est optionnel (valeur par défaut: `gemini-2.5-flash-lite`).
+- `OPENAI_API_KEY` est obligatoire.
+- `OPENAI_MODEL` est optionnel (valeur par défaut: `gpt-4o-mini`).
 - Après modification des variables d’environnement, redémarre le serveur Next.js.
 
 ## 5) Lancement (dev / prod)
@@ -219,13 +218,13 @@ Déploiement conseillé: Vercel (natif Next.js).
 Checklist minimum:
 
 1. Connecter le repo sur Vercel.
-2. Définir les variables d’environnement (`GEMINI_API_KEY`, éventuellement `GEMINI_MODEL`).
+2. Définir les variables d’environnement (`OPENAI_API_KEY`, éventuellement `OPENAI_MODEL`).
 3. Build command: `pnpm build` (par défaut généralement détecté).
 4. Start command: `pnpm start` (géré automatiquement sur Vercel pour Next.js).
 
 ## 10) Dépannage
 
-### `Missing API key. Configure GEMINI_API_KEY...`
+### `Missing API key. Configure OPENAI_API_KEY...`
 
 - Vérifie `.env.local`.
 - Redémarre `pnpm dev`.
@@ -233,7 +232,7 @@ Checklist minimum:
 ### `AI provider error. Check key/model configuration.`
 
 - Clé invalide ou expirée.
-- Modèle Gemini invalide dans `GEMINI_MODEL`.
+- Modèle OpenAI invalide dans `OPENAI_MODEL`.
 
 ### Le terminal dit “Daily request limit reached”
 

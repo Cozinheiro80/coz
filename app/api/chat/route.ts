@@ -1,6 +1,4 @@
 import { NextResponse, type NextRequest } from "next/server";
-import fs from "node:fs";
-import path from "node:path";
 
 const SYSTEM_PROMPT = `
 ROLE
@@ -134,12 +132,15 @@ type RateLimitRecord = {
   startTime: number;
 };
 
-type GeminiResponse = {
-  candidates?: Array<{
-    content?: {
-      parts?: Array<{
-        text?: string;
-      }>;
+type OpenAiChatCompletionResponse = {
+  choices?: Array<{
+    message?: {
+      content?:
+        | string
+        | Array<{
+            type?: string;
+            text?: string;
+          }>;
     };
   }>;
 };
@@ -147,9 +148,7 @@ type GeminiResponse = {
 const rateLimitMap = new Map<string, RateLimitRecord>();
 const LIMIT_PER_DAY = 10;
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;
-const DEFAULT_GEMINI_MODEL = "gemini-2.5-flash-lite";
-const CV_FILE_CANDIDATES = ["CV.pdf", "Cv_Ivan Lilla_@Cozinheiro.pdf"];
-const ATTACH_CV_TO_CHAT = false;
+const DEFAULT_OPENAI_MODEL = "gpt-4o-mini";
 
 function getClientIp(request: NextRequest): string {
   const forwarded = request.headers.get("x-forwarded-for");
@@ -158,16 +157,22 @@ function getClientIp(request: NextRequest): string {
   return request.headers.get("x-real-ip") ?? "unknown-ip";
 }
 
-function tryReadCvAsBase64(): string | null {
-  for (const filename of CV_FILE_CANDIDATES) {
-    const fullPath = path.join(process.cwd(), "public", filename);
-    if (fs.existsSync(fullPath)) {
-      const cvBuffer = fs.readFileSync(fullPath);
-      return cvBuffer.toString("base64");
-    }
+function extractReply(data: OpenAiChatCompletionResponse): string {
+  const content = data.choices?.[0]?.message?.content;
+  if (typeof content === "string") return content;
+
+  if (Array.isArray(content)) {
+    const text = content
+      .map((part) =>
+        part.type === "text" && typeof part.text === "string" ? part.text : "",
+      )
+      .join("")
+      .trim();
+
+    if (text) return text;
   }
 
-  return null;
+  return "AI error";
 }
 
 export async function POST(request: NextRequest) {
@@ -199,69 +204,52 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing message" }, { status: 400 });
     }
 
-    const apiKey = process.env.GEMINI_API_KEY ?? process.env.GOOGLE_API_KEY;
+    const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
       return NextResponse.json(
         {
           error:
-            "Missing API key. Configure GEMINI_API_KEY (or GOOGLE_API_KEY) in .env.local.",
+            "Missing API key. Configure OPENAI_API_KEY in .env.local.",
         },
         { status: 500 },
       );
     }
 
-    const model = process.env.GEMINI_MODEL ?? DEFAULT_GEMINI_MODEL;
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-    const cvBase64 = ATTACH_CV_TO_CHAT ? tryReadCvAsBase64() : null;
-
-    const parts: Array<
-      | { text: string }
-      | {
-          inlineData: {
-            mimeType: string;
-            data: string;
-          };
-        }
-    > = [{ text: message }];
-
-    if (cvBase64) {
-      parts.unshift({
-        inlineData: {
-          mimeType: "application/pdf",
-          data: cvBase64,
-        },
-      });
-    }
-
+    const model = process.env.OPENAI_MODEL ?? DEFAULT_OPENAI_MODEL;
     const payload = {
-      systemInstruction: {
-        parts: [{ text: SYSTEM_PROMPT }],
-      },
-      contents: [
+      model,
+      messages: [
+        {
+          role: "system",
+          content: SYSTEM_PROMPT,
+        },
         {
           role: "user",
-          parts,
+          content: message,
         },
       ],
     };
 
-    const response = await fetch(url, {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
       body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("Gemini API error:", response.status, errorText);
+      console.error("OpenAI API error:", response.status, errorText);
       return NextResponse.json(
         { error: "AI provider error. Check key/model configuration." },
         { status: 502 },
       );
     }
 
-    const data = (await response.json()) as GeminiResponse;
-    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text ?? "AI error";
+    const data = (await response.json()) as OpenAiChatCompletionResponse;
+    const reply = extractReply(data);
 
     return NextResponse.json({ reply });
   } catch (error) {

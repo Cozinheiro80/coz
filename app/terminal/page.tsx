@@ -62,7 +62,7 @@ const TerminalPage = () => {
     }
   }, []);
 
-  const fetchGeminiResponse = async (
+  const fetchAssistantResponse = async (
     userQuery: string,
   ): Promise<{ text: string; isRateLimit: boolean }> => {
     // --- GESTION DU RATE LIMITING VIA LOCALSTORAGE ---
@@ -146,7 +146,7 @@ const TerminalPage = () => {
       return;
     }
 
-    const response = await fetchGeminiResponse(cmd);
+    const response = await fetchAssistantResponse(cmd);
 
     setHistory((prev) => [
       ...prev,
