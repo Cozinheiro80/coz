@@ -39,7 +39,7 @@ const TerminalPage = () => {
     {
       type: "system",
       content:
-        "[SYSTEM] Initializing STEFANO v1.0.0...\n[SYSTEM] Secure server connection established.\n\n\n[COZ] Hi, I'm COZ, Ivan's personal AI and digital twin. I know his journey, motivations, and projects inside out. What would you like to know about him?",
+        "[SYSTEM] Initializing COZ v1.0.0...\n[SYSTEM] Secure server connection established.\n\n\n[COZ] Hi, I'm COZ, Ivan's personal AI and digital twin. I know his journey, motivations, and projects inside out. What would you like to know about him?",
     },
   ]);
   const [input, setInput] = useState("");
