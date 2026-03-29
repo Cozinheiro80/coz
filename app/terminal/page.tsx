@@ -39,7 +39,7 @@ const TerminalPage = () => {
     {
       type: "system",
       content:
-        "[SYSTEM] Initializing COZ v1.0.0...\n[SYSTEM] Secure server connection established.\n\n\n[COZ] Hi, I'm COZ, Ivan's personal AI and digital twin. I know his journey, motivations, and projects inside out. What would you like to know about him?",
+        "[SYSTEM] Initializing STEFANO v1.0.0...\n[SYSTEM] Secure server connection established.\n\n\n[COZ] Hi, I'm COZ, Ivan's personal AI and digital twin. I know his journey, motivations, and projects inside out. What would you like to know about him?",
     },
   ]);
   const [input, setInput] = useState("");
@@ -103,9 +103,9 @@ const TerminalPage = () => {
       }
 
       if (!response.ok) {
-        const errorPayload = (await response.json().catch(() => null)) as
-          | { error?: string }
-          | null;
+        const errorPayload = (await response.json().catch(() => null)) as {
+          error?: string;
+        } | null;
         const serverMessage =
           typeof errorPayload?.error === "string"
             ? errorPayload.error
@@ -187,7 +187,7 @@ const TerminalPage = () => {
           {history.map((line, i) => (
             <div
               key={i}
-              className={`${line.type === "user" ? (isDark ? "text-cyan-300" : "text-indigo-700") : (isDark ? "text-slate-300" : "text-slate-700")} animate-in fade-in slide-in-from-left-2 duration-300 leading-relaxed break-words max-w-full`}
+              className={`${line.type === "user" ? (isDark ? "text-cyan-300" : "text-indigo-700") : isDark ? "text-slate-300" : "text-slate-700"} animate-in fade-in slide-in-from-left-2 duration-300 leading-relaxed break-words max-w-full`}
             >
               {line.type === "user" ? (
                 <span className="flex gap-2 font-bold text-shadow-cyan whitespace-pre-wrap">
