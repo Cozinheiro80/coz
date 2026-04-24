@@ -1,5 +1,5 @@
 import * as React from "react"
-import { createMap } from "svg-dotted-map"
+import DottedMapGenerator from "dotted-map"
 
 import { cn } from "@/lib/utils"
 
@@ -53,51 +53,47 @@ export function DottedMap<M extends Marker = Marker>({
   style,
   ...svgProps
 }: DottedMapProps<M>) {
-  const { points, addMarkers } = createMap({
-    width,
-    height,
-    mapSamples,
+  const sampleScale = Math.sqrt(Math.max(mapSamples, 1) / 5000)
+  const mapWidth = Math.max(1, Math.round(width * sampleScale))
+  const mapHeight = Math.max(1, Math.round(height * sampleScale))
+  const radiusScale = mapWidth / width
+  const scaledDotRadius = dotRadius * radiusScale
+
+  const map = new DottedMapGenerator({
+    width: mapWidth,
+    height: mapHeight,
+    grid: stagger ? "diagonal" : "vertical",
   })
-  const processedMarkers = addMarkers(markers)
 
-  // Compute stagger helpers in a single, simple pass.
-  // We avoid useMemo here to keep lint/react-compiler happy with mutable map points.
-  const sortedPoints = [...points].sort((a, b) => a.y - b.y || a.x - b.x)
-  const yToRowIndex = new Map<number, number>()
-  let step = 0
-  let prevY = Number.NaN
-  let prevXInRow = Number.NaN
+  const points = map.getPoints()
+  const processedMarkers = markers.flatMap((marker): MapMarker<M>[] => {
+    const { lat, lng, ...markerData } = marker
+    const pin = map.getPin({ lat, lng })
 
-  for (const p of sortedPoints) {
-    if (p.y !== prevY) {
-      prevY = p.y
-      prevXInRow = Number.NaN
-      if (!yToRowIndex.has(p.y)) yToRowIndex.set(p.y, yToRowIndex.size)
-    }
-    if (!Number.isNaN(prevXInRow)) {
-      const delta = p.x - prevXInRow
-      if (delta > 0) step = step === 0 ? delta : Math.min(step, delta)
-    }
-    prevXInRow = p.x
-  }
+    if (!pin) return []
 
-  const xStep = step || 1
+    return [
+      {
+        ...markerData,
+        x: pin.x,
+        y: pin.y,
+      } as MapMarker<M>,
+    ]
+  })
 
   return (
     <svg
-      viewBox={`0 0 ${width} ${height}`}
+      viewBox={`0 0 ${mapWidth} ${mapHeight}`}
       className={cn("text-gray-500 dark:text-gray-500", className)}
       style={{ width: "100%", height: "100%", ...style }}
       {...svgProps}
     >
       {points.map((point, index) => {
-        const rowIndex = yToRowIndex.get(point.y) ?? 0
-        const offsetX = stagger && rowIndex % 2 === 1 ? xStep / 2 : 0
         return (
           <circle
-            cx={point.x + offsetX}
+            cx={point.x}
             cy={point.y}
-            r={dotRadius}
+            r={scaledDotRadius}
             fill={dotColor}
             key={`${point.x}-${point.y}-${index}`}
           />
@@ -105,12 +101,9 @@ export function DottedMap<M extends Marker = Marker>({
       })}
 
       {processedMarkers.map((marker, index) => {
-        const rowIndex = yToRowIndex.get(marker.y) ?? 0
-        const offsetX = stagger && rowIndex % 2 === 1 ? xStep / 2 : 0
-
-        const x = marker.x + offsetX
+        const x = marker.x
         const y = marker.y
-        const r = marker.size ?? dotRadius
+        const r = (marker.size ?? dotRadius) * radiusScale
         const shouldPulse = pulse
           ? marker.pulse !== false
           : marker.pulse === true
@@ -129,7 +122,7 @@ export function DottedMap<M extends Marker = Marker>({
                   fill="none"
                   stroke={markerColor}
                   strokeOpacity={1}
-                  strokeWidth={0.35}
+                  strokeWidth={0.35 * radiusScale}
                 >
                   <animate
                     attributeName="r"
@@ -151,7 +144,7 @@ export function DottedMap<M extends Marker = Marker>({
                   fill="none"
                   stroke={markerColor}
                   strokeOpacity={0.9}
-                  strokeWidth={0.3}
+                  strokeWidth={0.3 * radiusScale}
                 >
                   <animate
                     attributeName="r"
