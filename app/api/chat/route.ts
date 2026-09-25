@@ -136,17 +136,15 @@ type RateLimitRecord = {
   startTime: number;
 };
 
-type OpenAiChatCompletionResponse = {
-  choices?: Array<{
-    message?: {
-      content?:
-        | string
-        | Array<{
-            type?: string;
-            text?: unknown;
-            refusal?: unknown;
-          }>;
-    };
+type OpenAiResponse = {
+  output_text?: unknown;
+  output?: Array<{
+    type?: string;
+    content?: Array<{
+      type?: string;
+      text?: unknown;
+      refusal?: unknown;
+    }>;
   }>;
 };
 
@@ -162,26 +160,25 @@ function getClientIp(request: NextRequest): string {
   return request.headers.get("x-real-ip") ?? "unknown-ip";
 }
 
-function extractReply(data: OpenAiChatCompletionResponse): string {
-  const content = data.choices?.[0]?.message?.content;
-  if (typeof content === "string") return content;
-
-  if (Array.isArray(content)) {
-    const text = content
-      .map((part) =>
-        part.type === "text" && typeof part.text === "string"
-          ? part.text
-          : part.type === "refusal" && typeof part.refusal === "string"
-            ? part.refusal
-            : "",
-      )
-      .join("")
-      .trim();
-
-    if (text) return text;
+function extractReply(data: OpenAiResponse): string {
+  if (typeof data.output_text === "string" && data.output_text.trim()) {
+    return data.output_text.trim();
   }
 
-  return "AI error";
+  const text = (data.output ?? [])
+    .flatMap((item) => item.content ?? [])
+    .map((part) =>
+      (part.type === "output_text" || part.type === "text") &&
+      typeof part.text === "string"
+        ? part.text
+        : part.type === "refusal" && typeof part.refusal === "string"
+          ? part.refusal
+          : "",
+    )
+    .join("")
+    .trim();
+
+  return text || "AI error";
 }
 
 function hasRenderingPlaceholder(reply: string): boolean {
@@ -194,33 +191,17 @@ async function createCompletion(
   message: string,
   repairPlaceholder = false,
 ): Promise<string> {
-  const messages = [
-    {
-      // Newer Chat Completions models use developer messages for instructions.
-      role: "developer",
-      content: SYSTEM_PROMPT,
-    },
-    {
-      role: "user",
-      content: message,
-    },
-  ];
+  const instructions = repairPlaceholder
+    ? `${SYSTEM_PROMPT}\n\nRewrite the answer from scratch as natural prose. Do not include the literal text "[object Object]" or any placeholder; name each recipe, project, and list item explicitly.`
+    : SYSTEM_PROMPT;
 
-  if (repairPlaceholder) {
-    messages.push({
-      role: "developer",
-      content:
-        "Rewrite the answer from scratch as natural prose. Do not include the literal text '[object Object]' or any placeholder; name each recipe, project, and list item explicitly.",
-    });
-  }
-
-  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+  const response = await fetch("https://api.openai.com/v1/responses", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${apiKey}`,
     },
-    body: JSON.stringify({ model, messages }),
+    body: JSON.stringify({ model, instructions, input: message }),
   });
 
   if (!response.ok) {
@@ -229,7 +210,7 @@ async function createCompletion(
     throw new Error("AI provider error. Check key/model configuration.");
   }
 
-  return extractReply((await response.json()) as OpenAiChatCompletionResponse);
+  return extractReply((await response.json()) as OpenAiResponse);
 }
 
 export async function POST(request: NextRequest) {
