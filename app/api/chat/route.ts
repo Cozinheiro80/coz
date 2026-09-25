@@ -148,7 +148,7 @@ type OpenAiChatCompletionResponse = {
 const rateLimitMap = new Map<string, RateLimitRecord>();
 const LIMIT_PER_DAY = 10;
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;
-const DEFAULT_OPENAI_MODEL = "gpt-4o-mini";
+const DEFAULT_OPENAI_MODEL = "gpt-6-luna";
 
 function getClientIp(request: NextRequest): string {
   const forwarded = request.headers.get("x-forwarded-for");
@@ -208,8 +208,7 @@ export async function POST(request: NextRequest) {
     if (!apiKey) {
       return NextResponse.json(
         {
-          error:
-            "Missing API key. Configure OPENAI_API_KEY in .env.local.",
+          error: "Missing API key. Configure OPENAI_API_KEY in .env.local.",
         },
         { status: 500 },
       );

@@ -69,13 +69,13 @@ Crée un fichier `.env.local` à la racine:
 
 ```bash
 OPENAI_API_KEY=your_openai_api_key
-OPENAI_MODEL=gpt-4o-mini
+OPENAI_MODEL=gpt-6-luna
 ```
 
 Notes importantes:
 
 - `OPENAI_API_KEY` est obligatoire.
-- `OPENAI_MODEL` est optionnel (valeur par défaut: `gpt-4o-mini`).
+- `OPENAI_MODEL` est optionnel (valeur par défaut: `gpt-6-luna`).
 - Après modification des variables d’environnement, redémarre le serveur Next.js.
 
 ## 5) Lancement (dev / prod)
