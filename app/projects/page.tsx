@@ -8,6 +8,8 @@ import {
   CheckCircle2,
   Globe2,
   Lock,
+  MapPin,
+  Layers3,
   Sparkles,
   Workflow,
   type LucideIcon,
@@ -123,6 +125,38 @@ const PROJECTS: ProjectCard[] = [
     icon: Globe2,
     accent: "from-teal-400 via-emerald-500 to-lime-500",
   },
+  {
+    id: 7,
+    name: "threedaysin.com",
+    url: "https://threedaysin.com",
+    category: "Travel Planning",
+    description:
+      "Travel planning platform that turns a city break into a curated three-day itinerary, with places to visit and practical details to help make each day easy to follow.",
+    highlights: [
+      "Curated three-day city itineraries",
+      "Local points of interest organized into daily plans",
+      "Practical information to support the trip",
+    ],
+    tags: ["Travel", "Itineraries", "City Guides"],
+    icon: MapPin,
+    accent: "from-sky-400 via-cyan-500 to-teal-500",
+  },
+  {
+    id: 8,
+    name: "optendra.vercel.app",
+    url: "https://optendra.vercel.app",
+    category: "AI & Tender Response",
+    description:
+      "AI platform using retrieval-augmented generation (RAG) and fine-tuned AI models to turn tender documents into clear, complete, and compelling responses.",
+    highlights: [
+      "RAG grounded in tender files and source documents",
+      "Fine-tuned AI models for response drafting",
+      "Clear, complete, and compelling tender responses",
+    ],
+    tags: ["AI", "RAG", "Tenders"],
+    icon: Layers3,
+    accent: "from-fuchsia-400 via-violet-500 to-indigo-500",
+  },
 ];
 
 const ProjectsPage = () => {
@@ -166,7 +200,7 @@ const ProjectsPage = () => {
 
           <div className="flex flex-wrap gap-2">
             {[
-              "6 live platforms",
+              "8 live platforms",
               "Private GitHub repositories",
               "Product-driven builds",
             ].map((item) => (
