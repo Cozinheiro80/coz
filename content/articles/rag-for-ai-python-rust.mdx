@@ -1,0 +1,79 @@
+---
+title: "RAG Explained: Giving AI the Right Documents"
+description: A practical introduction to Retrieval-Augmented Generation, how document retrieval works, and where Python and Rust fit into a RAG application.
+date: 2026-10-05
+author: Ivan Lilla
+readingTime: 7 min read
+tags: [AI, RAG, Python, Rust, Information Retrieval, Software Architecture]
+---
+
+Large language models can write, summarize, and answer questions. But they do not automatically know the contents of your company's documents, a newly published tender, or the latest version of a project file.
+
+**Retrieval-Augmented Generation (RAG)** helps bridge that gap. Before answering a question, a RAG system searches a collection of documents for relevant information. It then gives those passages to the language model as context, so the model can use them to form its answer.
+
+Imagine asking someone a question and handing them the relevant pages from a dossier before they reply. The pages provide the evidence; the person turns it into an explanation. RAG follows a similar pattern: it retrieves information first, then generates a response.
+
+In simplified terms, a RAG system:
+
+1. Receives a question.
+2. Searches a document collection for relevant passages.
+3. Provides those passages to the model as context.
+4. Generates an answer based on the question and the retrieved information.
+
+This makes it possible to ask questions about large collections of documents in everyday language. But RAG does not guarantee that an answer is correct. If the system retrieves the wrong passages, misses important information, or relies on outdated documents, the answer may still be incomplete or misleading—even if it sounds confident.
+
+## How Does RAG Find the Right Information?
+
+Before a RAG system can answer questions about a document collection, the documents need to be prepared for search.
+
+First, the system extracts text from files such as PDFs and Word documents. It then divides that text into smaller passages, often called **chunks**. A chunk might contain a paragraph, a group of related paragraphs, or another manageable section. The goal is to keep each passage small enough to search accurately while preserving enough context to make sense on its own.
+
+Next, the system creates a numerical representation of each passage, called an **embedding**. Embeddings capture aspects of meaning, so passages with similar ideas can be found even when they use different words. For example, a search for “how long does the transition take?” might retrieve a passage that says “the service will be implemented over a six-week period.”
+
+When a user asks a question, the system creates an embedding for that question and compares it with the stored document passages. It selects the passages that seem most relevant and gives them to the language model, along with the question.
+
+This search step is crucial. If the right information is not retrieved, the model cannot reliably use it. A system may miss an answer because a passage was split awkwardly, a table was not extracted properly, or the search terms did not match the way the information was written.
+
+RAG is therefore more than a language model connected to a folder. It is a chain of steps: documents must be readable, passages must retain their context, and search must bring the useful evidence to the model.
+
+## Where Do Programming Languages Fit In?
+
+A RAG system may feel like a conversation with an AI, but several pieces of software work behind each answer. Programming languages are used to connect those pieces and define how they interact.
+
+Code can extract text from documents, split it into passages, create embeddings, store them in a searchable database, and retrieve relevant passages when a question arrives. It then sends the question and retrieved context to a language model, and returns the model’s answer to the user. Other code can help display the sources, manage errors, and check whether the answer meets the system’s requirements.
+
+The language model does not usually decide this whole process on its own. The application code sets the workflow: which documents it can search, how many passages to retrieve, what instructions to give the model, and how to present the result. The model generates language; the software around it determines what information it receives and how its response is used.
+
+This is why building a useful RAG product is not simply a matter of choosing a powerful model. It also depends on how well the surrounding software handles documents, search, context, and evaluation. The quality of the answer reflects the whole system—from the source files to the final interface.
+
+## A Practical Example With Python and Rust
+
+Imagine a company wants to ask questions about a large collection of tender documents. The application needs to prepare the files, find relevant passages, and give those passages to a language model.
+
+Python could coordinate the main workflow:
+
+```python
+def answer_question(question):
+    question_embedding = embed(question)
+    passages = document_index.search(question_embedding, limit=5)
+
+    context = "\n\n".join(passage.text for passage in passages)
+
+    return language_model.generate(
+        f"Answer using the context below.\n\n"
+        f"Context:\n{context}\n\n"
+        f"Question: {question}"
+    )
+```
+
+Here, `embed`, `document_index.search`, and `language_model.generate` stand in for the embedding service, search database, and model API. Python connects the steps and passes the retrieved text to the model.
+
+Rust could be added where document processing becomes demanding—for example, to clean and split a very large batch of extracted text efficiently. Python could send the text to a Rust service, then index the passages Rust returns. The two components might communicate through an HTTP API or a Python binding.
+
+For a small project, Python alone may be all that is needed. Rust is an option when a specific part of the system needs more speed or tighter control over memory. In either case, the RAG process stays the same: retrieve useful evidence, provide it to the model, and generate an answer from that context.
+
+## The Model Is Only One Part of the Answer
+
+RAG gives a language model access to relevant information at the moment it answers. That can make a large document collection easier to use, but the result depends on the complete system: the quality of the source files, the way they are prepared, the passages retrieval selects, and the checks applied to the generated response.
+
+In practice, the most useful question is not only “Which model should we use?” It is also “Can we retrieve the right evidence, show where it came from, and verify the answer before someone relies on it?”
