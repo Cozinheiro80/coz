@@ -1,0 +1,85 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgSearch" x1="0" y1="0" x2="1600" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A"/>
+      <stop offset="1" stop-color="#134E4A"/>
+    </linearGradient>
+    <linearGradient id="accentSearch" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#5EEAD4"/>
+      <stop offset="1" stop-color="#38BDF8"/>
+    </linearGradient>
+    <linearGradient id="flowSearch" x1="420" y1="0" x2="1280" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5EEAD4" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#38BDF8" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bgSearch)"/>
+  <circle cx="1480" cy="120" r="200" fill="#14B8A6" fill-opacity="0.18"/>
+  <circle cx="120" cy="820" r="220" fill="#38BDF8" fill-opacity="0.12"/>
+
+  <!-- Titles -->
+  <text x="120" y="160" fill="#99F6E4" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="40" font-weight="700" letter-spacing="4">
+    AI IN EVERYDAY LIFE · PART 1
+  </text>
+  <text x="120" y="244" fill="#F0FDFA" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="68" font-weight="700">
+    Searching Is Now a Conversation
+  </text>
+  <text x="120" y="304" fill="#5EEAD4" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="30">
+    Ask. Challenge. Change the angle. Verify.
+  </text>
+
+  <!-- Flow curves: question -> angles -->
+  <g stroke="url(#flowSearch)" stroke-width="3" fill="none" opacity="0.55">
+    <path d="M420 600C530 600 540 420 640 420"/>
+    <path d="M420 600C530 600 540 492 640 492"/>
+    <path d="M420 600C530 600 540 564 640 564"/>
+    <path d="M420 600C530 600 540 636 640 636"/>
+    <path d="M420 600C530 600 540 708 640 708"/>
+    <path d="M420 600C530 600 540 780 640 780"/>
+    <path d="M940 420C1060 420 1160 600 1280 600"/>
+    <path d="M940 492C1060 492 1160 600 1280 600"/>
+    <path d="M940 564C1060 564 1160 600 1280 600"/>
+    <path d="M940 636C1060 636 1160 600 1280 600"/>
+    <path d="M940 708C1060 708 1160 600 1280 600"/>
+    <path d="M940 780C1060 780 1160 600 1280 600"/>
+  </g>
+
+  <!-- Question -->
+  <rect x="120" y="535" width="300" height="130" rx="30" fill="#0B1220" stroke="#5EEAD4" stroke-width="5"/>
+  <path d="M170 665L150 705L210 665Z" fill="#0B1220" stroke="#5EEAD4" stroke-width="5" stroke-linejoin="round"/>
+  <rect x="160" y="655" width="60" height="14" fill="#0B1220"/>
+  <text x="270" y="592" text-anchor="middle" fill="#F0FDFA" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="38" font-weight="700">
+    One question
+  </text>
+  <text x="270" y="634" text-anchor="middle" fill="#99F6E4" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="26">
+    plain language
+  </text>
+
+  <!-- Angles -->
+  <g font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="28" font-weight="600" text-anchor="middle" fill="#F0FDFA">
+    <rect x="640" y="394" width="300" height="52" rx="26" fill="#0B1220" stroke="#5EEAD4" stroke-width="3"/>
+    <text x="790" y="431">The skeptic</text>
+    <rect x="640" y="466" width="300" height="52" rx="26" fill="#0B1220" stroke="#5EEAD4" stroke-width="3"/>
+    <text x="790" y="503">Time horizon</text>
+    <rect x="640" y="538" width="300" height="52" rx="26" fill="#0B1220" stroke="#5EEAD4" stroke-width="3"/>
+    <text x="790" y="575">Real cost</text>
+    <rect x="640" y="610" width="300" height="52" rx="26" fill="#0B1220" stroke="#38BDF8" stroke-width="3"/>
+    <text x="790" y="647">Failure case</text>
+    <rect x="640" y="682" width="300" height="52" rx="26" fill="#0B1220" stroke="#38BDF8" stroke-width="3"/>
+    <text x="790" y="719">Alternatives</text>
+    <rect x="640" y="754" width="300" height="52" rx="26" fill="#0B1220" stroke="#38BDF8" stroke-width="3"/>
+    <text x="790" y="791">What I forgot to ask</text>
+  </g>
+
+  <!-- Verified -->
+  <circle cx="1380" cy="600" r="100" fill="#14B8A6" fill-opacity="0.18"/>
+  <circle cx="1380" cy="600" r="72" fill="url(#accentSearch)"/>
+  <path d="M1346 602L1370 628L1416 574" stroke="#0B1220" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="1380" y="740" text-anchor="middle" fill="#F0FDFA" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="32" font-weight="700">
+    Verified answer
+  </text>
+  <text x="1380" y="780" text-anchor="middle" fill="#99F6E4" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="24">
+    sources opened
+  </text>
+</svg>

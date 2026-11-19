@@ -1,0 +1,344 @@
+{
+  "app/api/chat/route.ts": {
+    "mtime": 1790352448.7852044,
+    "seen": 1795102757.168459,
+    "ast_hash": "6bf5523d68953b6556dbe282ef49260b",
+    "semantic_hash": "6bf5523d68953b6556dbe282ef49260b"
+  },
+  "app/articles/[slug]/article-content.tsx": {
+    "mtime": 1773866520.0523293,
+    "seen": 1795102757.1684642,
+    "ast_hash": "659294e11bfcb37ddf88370318fae191",
+    "semantic_hash": "659294e11bfcb37ddf88370318fae191"
+  },
+  "app/articles/[slug]/page.tsx": {
+    "mtime": 1773848370.4118047,
+    "seen": 1795102757.168466,
+    "ast_hash": "8630440b95989cbc67d97780b9f3230e",
+    "semantic_hash": "8630440b95989cbc67d97780b9f3230e"
+  },
+  "app/articles/articles-list.tsx": {
+    "mtime": 1773866513.3452275,
+    "seen": 1795102757.1684673,
+    "ast_hash": "6cd90571e4778265add87d77ae3dd2f1",
+    "semantic_hash": "6cd90571e4778265add87d77ae3dd2f1"
+  },
+  "app/articles/page.tsx": {
+    "mtime": 1773848272.8073063,
+    "seen": 1795102757.1684678,
+    "ast_hash": "9daeb97fc01aff0d3382b0006ee2c6bd",
+    "semantic_hash": "9daeb97fc01aff0d3382b0006ee2c6bd"
+  },
+  "app/components/PdfViewer.tsx": {
+    "mtime": 1773847516.9116068,
+    "seen": 1795102757.1684685,
+    "ast_hash": "505ca19ae89eb12f3c1a3b42cccc964c",
+    "semantic_hash": "505ca19ae89eb12f3c1a3b42cccc964c"
+  },
+  "app/components/app-shell.tsx": {
+    "mtime": 1773866508.2801504,
+    "seen": 1795102757.1684694,
+    "ast_hash": "08b6286d06f9ee2eb261720cf2ab5dd1",
+    "semantic_hash": "08b6286d06f9ee2eb261720cf2ab5dd1"
+  },
+  "app/components/guestbook.tsx": {
+    "mtime": 1773847672.0480375,
+    "seen": 1795102757.16847,
+    "ast_hash": "d4432a180bf6bef0c0bbfe6cf7899a6b",
+    "semantic_hash": "d4432a180bf6bef0c0bbfe6cf7899a6b"
+  },
+  "app/components/header.tsx": {
+    "mtime": 1774686063.9895158,
+    "seen": 1795102757.1684706,
+    "ast_hash": "16ae3845e63476fbc10114fae56ce7db",
+    "semantic_hash": "16ae3845e63476fbc10114fae56ce7db"
+  },
+  "app/components/sidebar.tsx": {
+    "mtime": 1773913432.1820564,
+    "seen": 1795102757.168471,
+    "ast_hash": "eed3af7c189505fad7854c4e6b917c97",
+    "semantic_hash": "eed3af7c189505fad7854c4e6b917c97"
+  },
+  "app/components/statusbar.tsx": {
+    "mtime": 1773914247.5779119,
+    "seen": 1795102757.1684718,
+    "ast_hash": "b1b23d084d61926015a0ccd472efb97c",
+    "semantic_hash": "b1b23d084d61926015a0ccd472efb97c"
+  },
+  "app/components/theme-context.tsx": {
+    "mtime": 1773847541.5989938,
+    "seen": 1795102757.1684725,
+    "ast_hash": "a7f427409cf834a8e03cc9e2bb4866b4",
+    "semantic_hash": "a7f427409cf834a8e03cc9e2bb4866b4"
+  },
+  "app/cv/page.tsx": {
+    "mtime": 1773913473.2296994,
+    "seen": 1795102757.168473,
+    "ast_hash": "4f109403c3204ffc7eaf492bb1cf709a",
+    "semantic_hash": "4f109403c3204ffc7eaf492bb1cf709a"
+  },
+  "app/layout.tsx": {
+    "mtime": 1773849325.6775737,
+    "seen": 1795102757.1684735,
+    "ast_hash": "cf6d9eeb4623ddcd74c9033d31c6ee52",
+    "semantic_hash": "cf6d9eeb4623ddcd74c9033d31c6ee52"
+  },
+  "app/page.tsx": {
+    "mtime": 1773847212.0608191,
+    "seen": 1795102757.1684744,
+    "ast_hash": "f330fd464c90ac221bd0fe327581f110",
+    "semantic_hash": "f330fd464c90ac221bd0fe327581f110"
+  },
+  "app/projects/page.tsx": {
+    "mtime": 1791187303.5793433,
+    "seen": 1795102757.168475,
+    "ast_hash": "1beb4fd2b9065af335c4bb244d6f0bab",
+    "semantic_hash": "1beb4fd2b9065af335c4bb244d6f0bab"
+  },
+  "app/stack/page.tsx": {
+    "mtime": 1773847567.3093967,
+    "seen": 1795102757.1684754,
+    "ast_hash": "b170f78f771c2f980c85d0e6c21aaff0",
+    "semantic_hash": "b170f78f771c2f980c85d0e6c21aaff0"
+  },
+  "app/terminal/page.tsx": {
+    "mtime": 1774792782.624268,
+    "seen": 1795102757.1684759,
+    "ast_hash": "1a124a00fdde0bda79d32d1b99ae21ab",
+    "semantic_hash": "1a124a00fdde0bda79d32d1b99ae21ab"
+  },
+  "app/utils/article-types.ts": {
+    "mtime": 1773848094.5835803,
+    "seen": 1795102757.1684763,
+    "ast_hash": "2014492b76ddc5015ce0dd4c9fd609ef",
+    "semantic_hash": "2014492b76ddc5015ce0dd4c9fd609ef"
+  },
+  "app/utils/articles.ts": {
+    "mtime": 1773848441.1458926,
+    "seen": 1795102757.1684768,
+    "ast_hash": "7f7b11a438b420244eac2323aeff3744",
+    "semantic_hash": "7f7b11a438b420244eac2323aeff3744"
+  },
+  "app/utils/config.ts": {
+    "mtime": 1773866020.8745089,
+    "seen": 1795102757.1684778,
+    "ast_hash": "707fda8fbfcf7c81b055d5482f00291e",
+    "semantic_hash": "707fda8fbfcf7c81b055d5482f00291e"
+  },
+  "components.json": {
+    "mtime": 1773849319.758187,
+    "seen": 1795102757.1684783,
+    "ast_hash": "44c81b438b75384955efd705c2cc8927",
+    "semantic_hash": "44c81b438b75384955efd705c2cc8927"
+  },
+  "components/ui/animated-theme-toggler.tsx": {
+    "mtime": 1774686015.1477628,
+    "seen": 1795102757.1684787,
+    "ast_hash": "30b6dd088ff9fd1200f59ce767a93da1",
+    "semantic_hash": "30b6dd088ff9fd1200f59ce767a93da1"
+  },
+  "components/ui/dotted-map.tsx": {
+    "mtime": 1777018551.7567334,
+    "seen": 1795102757.1684794,
+    "ast_hash": "d93f272c2d2727d364399f28816d6b28",
+    "semantic_hash": "d93f272c2d2727d364399f28816d6b28"
+  },
+  "eslint.config.mjs": {
+    "mtime": 1773842373.2792373,
+    "seen": 1795102757.16848,
+    "ast_hash": "dfa1f5f6a7037bf39dc510f30b180002",
+    "semantic_hash": "dfa1f5f6a7037bf39dc510f30b180002"
+  },
+  "lib/utils.ts": {
+    "mtime": 1773849326.348079,
+    "seen": 1795102757.1684804,
+    "ast_hash": "5a6fd53fdcf2be529e9cc0b718fde352",
+    "semantic_hash": "5a6fd53fdcf2be529e9cc0b718fde352"
+  },
+  "next.config.ts": {
+    "mtime": 1773842373.2792807,
+    "seen": 1795102757.1684813,
+    "ast_hash": "9b77af189a21a7a64e4bd7a426f64176",
+    "semantic_hash": "9b77af189a21a7a64e4bd7a426f64176"
+  },
+  "package.json": {
+    "mtime": 1794907610.5872,
+    "seen": 1795102757.1684818,
+    "ast_hash": "6ef1c5104ca38804d4dc18b272a1648c",
+    "semantic_hash": "6ef1c5104ca38804d4dc18b272a1648c"
+  },
+  "postcss.config.mjs": {
+    "mtime": 1773842373.279339,
+    "seen": 1795102757.1684823,
+    "ast_hash": "239f3ebf717465dc636818a1a619398d",
+    "semantic_hash": "239f3ebf717465dc636818a1a619398d"
+  },
+  "tsconfig.json": {
+    "mtime": 1773843319.8349717,
+    "seen": 1795102757.1684828,
+    "ast_hash": "a78325e0ea368d525595d05d81986708",
+    "semantic_hash": "a78325e0ea368d525595d05d81986708"
+  },
+  "types/external-modules.d.ts": {
+    "mtime": 1773866889.821949,
+    "seen": 1795102757.1684833,
+    "ast_hash": "efb9f149ba8f6b157182ad064c30e31c",
+    "semantic_hash": "efb9f149ba8f6b157182ad064c30e31c"
+  },
+  "README.md": {
+    "mtime": 1790345626.8481598,
+    "seen": 1795102757.1684837,
+    "ast_hash": "6c1e00c575153791ae9577cc8b8105c4",
+    "semantic_hash": "6c1e00c575153791ae9577cc8b8105c4"
+  },
+  "content/articles/ai-search-everywhere-optimization-seo-geo-aeo-2026.mdx": {
+    "mtime": 1777317194.089296,
+    "seen": 1795102757.1684847,
+    "ast_hash": "1f0c6f33f6bd2cf44ecd02b203391f0b",
+    "semantic_hash": "1f0c6f33f6bd2cf44ecd02b203391f0b"
+  },
+  "content/articles/blockchain-from-poc-to-production-2024.mdx": {
+    "mtime": 1773929966.1484332,
+    "seen": 1795102757.1684852,
+    "ast_hash": "8a0c8d646c02667b06129ee4e810f951",
+    "semantic_hash": "8a0c8d646c02667b06129ee4e810f951"
+  },
+  "content/articles/blockchain-javascript-solidity-ternoa.mdx": {
+    "mtime": 1773848496.101739,
+    "seen": 1795102757.1684856,
+    "ast_hash": "0324ae79b1a6aec78f9b1af7f1dcf029",
+    "semantic_hash": "0324ae79b1a6aec78f9b1af7f1dcf029"
+  },
+  "content/articles/blockchain-pragmatic-architecture-2025.mdx": {
+    "mtime": 1773929969.81049,
+    "seen": 1795102757.168486,
+    "ast_hash": "767defe3210be0bd5d970b35fb7d04cf",
+    "semantic_hash": "767defe3210be0bd5d970b35fb7d04cf"
+  },
+  "content/articles/boosting-reactjs-development-efficiency-ai-tools.mdx": {
+    "mtime": 1773849184.6443868,
+    "seen": 1795102757.1684866,
+    "ast_hash": "bef0949967a934420297a0118cab1c00",
+    "semantic_hash": "bef0949967a934420297a0118cab1c00"
+  },
+  "content/articles/caps-token-ternoa-bull-base-bear-2026.mdx": {
+    "mtime": 1773932405.980464,
+    "seen": 1795102757.168487,
+    "ast_hash": "65f9a7c569b795efcf56b92db11e93bf",
+    "semantic_hash": "65f9a7c569b795efcf56b92db11e93bf"
+  },
+  "content/articles/coolest-things-modern-javascript.mdx": {
+    "mtime": 1773848687.5576925,
+    "seen": 1795102757.168488,
+    "ast_hash": "6a9ff885300f1b17cd5fda7eaf058128",
+    "semantic_hash": "6a9ff885300f1b17cd5fda7eaf058128"
+  },
+  "content/articles/exploring-nextjs-13-data-fetching.mdx": {
+    "mtime": 1773849111.0932467,
+    "seen": 1795102757.1684885,
+    "ast_hash": "f48cf64e9e360f73a87c8a1ee6b9cc5e",
+    "semantic_hash": "f48cf64e9e360f73a87c8a1ee6b9cc5e"
+  },
+  "content/articles/rag-for-ai-python-rust.mdx": {
+    "mtime": 1791188075.191181,
+    "seen": 1795102757.1684892,
+    "ast_hash": "537b1fe007723c36ac26a9ccf2aa979f",
+    "semantic_hash": "537b1fe007723c36ac26a9ccf2aa979f"
+  },
+  "content/articles/rust-large-data-files-streaming-profiler.mdx": {
+    "mtime": 1773929975.0345707,
+    "seen": 1795102757.1684897,
+    "ast_hash": "236281b761c079d7213479fcfe251276",
+    "semantic_hash": "236281b761c079d7213479fcfe251276"
+  },
+  "content/articles/ternoa-cifer-athar-payfi-updates-2026.mdx": {
+    "mtime": 1773932122.3060482,
+    "seen": 1795102757.1684902,
+    "ast_hash": "8f2daf8ad85024eb463a735e497b2790",
+    "semantic_hash": "8f2daf8ad85024eb463a735e497b2790"
+  },
+  "content/articles/v8-engine-the-basics.mdx": {
+    "mtime": 1773848940.85561,
+    "seen": 1795102757.1684914,
+    "ast_hash": "3a2b7ca70b0b90ed5d55010bc0d6afbd",
+    "semantic_hash": "3a2b7ca70b0b90ed5d55010bc0d6afbd"
+  },
+  "pnpm-workspace.yaml": {
+    "mtime": 1793630780.5035048,
+    "seen": 1795102757.1684918,
+    "ast_hash": "6c3cd7f8da6e996f9a3c8eeef37a74cf",
+    "semantic_hash": "6c3cd7f8da6e996f9a3c8eeef37a74cf"
+  },
+  "public/articles/ai-search-everywhere-optimization-2026.png": {
+    "mtime": 1777317149.202492,
+    "seen": 1795102757.1684923,
+    "ast_hash": "2cb5d695add550ee64faf36cf965c6c7",
+    "semantic_hash": "2cb5d695add550ee64faf36cf965c6c7"
+  },
+  "public/articles/ai_coding.webp": {
+    "mtime": 1773849122.040152,
+    "seen": 1795102757.168493,
+    "ast_hash": "f7605454dc99630b95d60abcb9200282",
+    "semantic_hash": "f7605454dc99630b95d60abcb9200282"
+  },
+  "public/articles/blockchain-2024-production.svg": {
+    "mtime": 1773929921.3747406,
+    "seen": 1795102757.1684935,
+    "ast_hash": "12627e6e1879dd403cb9c491ad63b32b",
+    "semantic_hash": "12627e6e1879dd403cb9c491ad63b32b"
+  },
+  "public/articles/blockchain-2025-pragmatic-architecture.svg": {
+    "mtime": 1773929938.9930131,
+    "seen": 1795102757.168494,
+    "ast_hash": "f256a7c19bbdb00b92a368f45512720e",
+    "semantic_hash": "f256a7c19bbdb00b92a368f45512720e"
+  },
+  "public/articles/blockchain.webp": {
+    "mtime": 1773848572.7876263,
+    "seen": 1795102757.1684947,
+    "ast_hash": "bdc25f99a29680fae37c2e661aba2f6d",
+    "semantic_hash": "bdc25f99a29680fae37c2e661aba2f6d"
+  },
+  "public/articles/modern_js.png": {
+    "mtime": 1773848644.4265842,
+    "seen": 1795102757.1684952,
+    "ast_hash": "52cf6f7cd1331ddf30d938a38799cd74",
+    "semantic_hash": "52cf6f7cd1331ddf30d938a38799cd74"
+  },
+  "public/articles/nextjs.webp": {
+    "mtime": 1773849075.9789166,
+    "seen": 1795102757.1684957,
+    "ast_hash": "303cf88802f4ef4d23bd7b02c9df72ef",
+    "semantic_hash": "303cf88802f4ef4d23bd7b02c9df72ef"
+  },
+  "public/articles/nodejs.jpg": {
+    "mtime": 1773848909.54525,
+    "seen": 1795102757.1684964,
+    "ast_hash": "ea25e846079934f94247204c3eb128a5",
+    "semantic_hash": "ea25e846079934f94247204c3eb128a5"
+  },
+  "public/articles/rag-for-ai-python-rust.png": {
+    "mtime": 1791188070.7601945,
+    "seen": 1795102757.1684968,
+    "ast_hash": "d8b0dcefc0a886f98d06a4cb99d3b4eb",
+    "semantic_hash": "d8b0dcefc0a886f98d06a4cb99d3b4eb"
+  },
+  "public/articles/rust-csv-profiler-2026.svg": {
+    "mtime": 1773929961.4513605,
+    "seen": 1795102757.1684973,
+    "ast_hash": "5d5010294bdc63f85207b02523403c44",
+    "semantic_hash": "5d5010294bdc63f85207b02523403c44"
+  },
+  "public/articles/ternoa.jpeg": {
+    "mtime": 1773848575.6527805,
+    "seen": 1795102757.1684978,
+    "ast_hash": "e2c0d86154870822da155318be0517ee",
+    "semantic_hash": "e2c0d86154870822da155318be0517ee"
+  },
+  "public/cil.webp": {
+    "mtime": 1773844593.5645747,
+    "seen": 1795102757.1684985,
+    "ast_hash": "fc17e683beb5288803c8e88a4adef82d",
+    "semantic_hash": "fc17e683beb5288803c8e88a4adef82d"
+  }
+}
