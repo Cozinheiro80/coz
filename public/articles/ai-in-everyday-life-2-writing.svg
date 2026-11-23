@@ -1,0 +1,73 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgWrite" x1="0" y1="0" x2="1600" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1E1B4B"/>
+      <stop offset="1" stop-color="#4C1D95"/>
+    </linearGradient>
+    <linearGradient id="accentWrite" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#FCD34D"/>
+      <stop offset="1" stop-color="#FB923C"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bgWrite)"/>
+  <circle cx="1480" cy="120" r="200" fill="#A78BFA" fill-opacity="0.18"/>
+  <circle cx="120" cy="820" r="220" fill="#FCD34D" fill-opacity="0.10"/>
+
+  <!-- Titles -->
+  <text x="120" y="160" fill="#DDD6FE" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="40" font-weight="700" letter-spacing="4">
+    AI IN EVERYDAY LIFE · PART 2
+  </text>
+  <text x="120" y="244" fill="#F5F3FF" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="68" font-weight="700">
+    Writing Without Losing Your Voice
+  </text>
+  <text x="120" y="304" fill="#FCD34D" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="30">
+    Decide first. Let AI polish. Edit last.
+  </text>
+
+  <!-- Flow arrows -->
+  <g stroke="#FCD34D" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.8">
+    <path d="M440 600H500"/>
+    <path d="M488 586L504 600L488 614"/>
+    <path d="M820 600H880"/>
+    <path d="M868 586L884 600L868 614"/>
+    <path d="M1200 600H1260"/>
+    <path d="M1248 586L1264 600L1248 614"/>
+  </g>
+
+  <g font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" text-anchor="middle">
+    <!-- 1 Intent -->
+    <rect x="120" y="500" width="320" height="200" rx="28" fill="#150F3A" stroke="#FCD34D" stroke-width="5"/>
+    <text x="280" y="570" fill="#F5F3FF" font-size="40" font-weight="700">Your intent</text>
+    <text x="280" y="620" fill="#DDD6FE" font-size="26">what you mean,</text>
+    <text x="280" y="656" fill="#DDD6FE" font-size="26">in plain words</text>
+
+    <!-- 2 AI pass -->
+    <rect x="504" y="500" width="316" height="200" rx="28" fill="#150F3A" stroke="#A78BFA" stroke-width="5"/>
+    <text x="662" y="570" fill="#F5F3FF" font-size="40" font-weight="700">AI pass</text>
+    <text x="662" y="620" fill="#DDD6FE" font-size="26">one change at a time:</text>
+    <text x="662" y="656" fill="#DDD6FE" font-size="26">shorter, clearer</text>
+
+    <!-- 3 Your edit -->
+    <rect x="884" y="500" width="316" height="200" rx="28" fill="#150F3A" stroke="#FCD34D" stroke-width="5"/>
+    <text x="1042" y="570" fill="#F5F3FF" font-size="40" font-weight="700">Your edit</text>
+    <text x="1042" y="620" fill="#DDD6FE" font-size="26">read aloud, check</text>
+    <text x="1042" y="656" fill="#DDD6FE" font-size="26">every detail</text>
+  </g>
+
+  <!-- Sent message -->
+  <circle cx="1400" cy="600" r="120" fill="#FB923C" fill-opacity="0.16"/>
+  <rect x="1268" y="540" width="264" height="120" rx="30" fill="url(#accentWrite)"/>
+  <path d="M1310 660L1290 705L1352 660Z" fill="#FB923C" stroke="#FB923C" stroke-width="4" stroke-linejoin="round"/>
+  <text x="1400" y="596" text-anchor="middle" fill="#1E1B4B" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="36" font-weight="700">
+    Still you
+  </text>
+  <text x="1400" y="634" text-anchor="middle" fill="#1E1B4B" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="24">
+    sent as yours
+  </text>
+
+  <!-- Caption -->
+  <text x="120" y="800" fill="#DDD6FE" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="28">
+    The decisions stay with you. The wording gets help.
+  </text>
+</svg>
