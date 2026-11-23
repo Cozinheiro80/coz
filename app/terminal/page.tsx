@@ -62,8 +62,24 @@ const TerminalPage = () => {
     }
   }, []);
 
+  // Only real COZ answers and user questions are sent back as conversation context.
+  type ChatTurn = { role: "user" | "assistant"; content: string };
+  const toChatHistory = (entries: HistoryEntry[]): ChatTurn[] =>
+    entries.flatMap((entry): ChatTurn[] => {
+      if (entry.type === "user") {
+        return [{ role: "user", content: entry.content }];
+      }
+      if (entry.content.startsWith("[COZ] ") && !entry.content.includes("Initializing COZ")) {
+        return [
+          { role: "assistant", content: entry.content.slice(6) },
+        ];
+      }
+      return [];
+    });
+
   const fetchAssistantResponse = async (
     userQuery: string,
+    previous: HistoryEntry[],
   ): Promise<{ text: string; isRateLimit: boolean }> => {
     // --- GESTION DU RATE LIMITING VIA LOCALSTORAGE ---
     const today = new Date().toLocaleDateString("en-US");
@@ -92,7 +108,10 @@ const TerminalPage = () => {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userQuery }),
+        body: JSON.stringify({
+          message: userQuery,
+          history: toChatHistory(previous),
+        }),
       });
 
       if (response.status === 429) {
@@ -146,7 +165,7 @@ const TerminalPage = () => {
       return;
     }
 
-    const response = await fetchAssistantResponse(cmd);
+    const response = await fetchAssistantResponse(cmd, history);
 
     setHistory((prev) => [
       ...prev,

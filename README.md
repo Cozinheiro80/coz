@@ -29,7 +29,7 @@ Ce README explique de façon complète comment installer, configurer, lancer et 
 ### Fonctionnalités principales
 
 - Interface portfolio “OS/terminal” responsive.
-- Chat IA (route API `POST /api/chat`) branché sur ChatGPT (OpenAI).
+- Chat IA (route API `POST /api/chat`) branché sur ChatGPT (OpenAI), avec RAG : il répond à partir de tous les articles (`content/articles/`) et des fiches `content/knowledge/*.md` (profil, projets, stack, perso). L'index (`lib/knowledge/`) se reconstruit seul quand le contenu change ; les embeddings sont mis en cache par hash de chunk. Pensez à mettre à jour `content/knowledge/projects.md` quand un projet change sur `/projects`.
 - Pages principales:
   - `/terminal`
   - `/projects`
