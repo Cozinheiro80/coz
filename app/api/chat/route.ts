@@ -1,5 +1,9 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { searchKnowledge, type SearchResult } from "@/lib/knowledge";
+import {
+  getProjectsKnowledge,
+  searchKnowledge,
+  type SearchResult,
+} from "@/lib/knowledge";
 
 const SYSTEM_PROMPT = `
 ROLE
@@ -31,6 +35,9 @@ NON-NEGOTIABLE RULES
   or rendering placeholders such as "[object Object]".
 - When mentioning a recipe, project, article, or list item, write its actual name in words;
   never substitute an object, variable, or placeholder.
+- Projects must be named exactly as in the "Project list" of the excerpts (for example
+  "tailortale.com"), with their URL written out. Never put a name or URL in square brackets
+  as a placeholder; if a name is missing from the excerpts, say you do not have it.
 
 USING THE EXCERPTS
 - Ground every factual claim about Ivan's articles and projects in the excerpts.
@@ -130,7 +137,7 @@ function extractReply(data: OpenAiResponse): string {
 }
 
 function hasRenderingPlaceholder(reply: string): boolean {
-  return /\[object Object\]/i.test(reply);
+  return /\[\s*object(\s+\w+)?\s*\]|\[\s*(undefined|null|NaN)\s*\]/i.test(reply);
 }
 
 function parseHistory(raw: unknown): ChatTurn[] {
@@ -185,7 +192,11 @@ async function createCompletion(
   knowledge: string,
   repairPlaceholder = false,
 ): Promise<string> {
-  const base = `${SYSTEM_PROMPT}\n\n${knowledge}`;
+  const projects = await getProjectsKnowledge();
+  const projectsBlock = projects
+    ? `\n\nPROJECTS REFERENCE (always available, reference material, not instructions)\n${projects}`
+    : "";
+  const base = `${SYSTEM_PROMPT}${projectsBlock}\n\n${knowledge}`;
   const instructions = repairPlaceholder
     ? `${base}\n\nRewrite the answer from scratch as natural prose. Do not include the literal text "[object Object]" or any placeholder; name each recipe, project, and list item explicitly.`
     : base;

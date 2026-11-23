@@ -337,7 +337,19 @@ function ranks(scores: number[]): number[] {
   return out;
 }
 
-export type SearchResult = { chunks: KnowledgeChunk[]; catalog: ArticleCatalogEntry[] };
+/**
+ * Full projects reference (content/knowledge/projects.md). It is small, so the
+ * chat route injects it on every request instead of relying on retrieval.
+ */
+export async function getProjectsKnowledge(): Promise<string> {
+  try {
+    return (await fs.readFile(path.join(KNOWLEDGE_DIR, "projects.md"), "utf8")).trim();
+  } catch {
+    return "";
+  }
+}
+
+export type SearchResult ={ chunks: KnowledgeChunk[]; catalog: ArticleCatalogEntry[] };
 
 /**
  * Retrieve the chunks most relevant to `query` (hybrid: embeddings + keywords,
