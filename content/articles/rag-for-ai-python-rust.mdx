@@ -1,10 +1,10 @@
 ---
 title: "RAG Explained: Giving AI the Right Documents"
-description: A practical introduction to Retrieval-Augmented Generation, how document retrieval works, and where Python and Rust fit into a RAG application.
+description: A practical introduction to Retrieval-Augmented Generation, how document retrieval works, where Python and Rust fit in, and why document versions, source authority and traceability matter as much as the model.
 date: 2026-10-05
 author: Ivan Lilla
-readingTime: 7 min read
-tags: [AI, RAG, Python, Rust, Information Retrieval, Software Architecture]
+readingTime: 9 min read
+tags: [AI, RAG, Python, Rust, Information Retrieval, Software Architecture, Data Governance]
 ---
 
 ![Illustration of documents being retrieved and used to generate an AI response](/articles/rag-for-ai-python-rust.png)
@@ -74,8 +74,27 @@ Rust could be added where document processing becomes demanding—for example, t
 
 For a small project, Python alone may be all that is needed. Rust is an option when a specific part of the system needs more speed or tighter control over memory. In either case, the RAG process stays the same: retrieve useful evidence, provide it to the model, and generate an answer from that context.
 
+## When the Right Document Gives the Wrong Answer
+
+A RAG system can retrieve exactly the document it should, and still produce a wrong answer. I think this is one of the most underestimated risks in AI applications.
+
+We tend to focus on the choice of language model, the comparison of embedding models, or the tuning of the vector database. But what happens when the documents themselves contain outdated information, contradictory guidance, or several versions of the same content? The model can write a perfectly coherent answer that rests on incorrect information. Fluent language is not evidence of a reliable source.
+
+Take a tender file. The original specification says the service starts in September. An amendment, published later, moves the start to January. Both documents are in the index, and both are highly relevant to the question “When does the service start?” The retrieval step did its job. The answer may still be wrong.
+
+Building a reliable RAG system means facing a few questions that have little to do with the model:
+
+- **How do we manage document versions?** Each document needs a clear status (current, superseded, draft), a date, and ideally a link to the version it replaces. Outdated versions should be excluded from search or clearly marked as such.
+- **How do we prioritize the most authoritative sources?** An official amendment should outrank an informal email. A signed contract should outrank a draft summary. The system needs metadata and rules that express this hierarchy, instead of treating every passage as equally trustworthy.
+- **How do we make answers traceable and verifiable?** Each answer should point to the passages it used: the document, its version, and the location of the passage. A reader who can check the source can also catch a mistake.
+- **How do we measure retrieval quality, independently of the generated answer?** A good-looking answer can hide a poor retrieval step, and a poor answer can come from a good one. Evaluating retrieval on its own, for example by checking whether the expected passages are found for a set of reference questions, shows where the problem really is. Evaluation frameworks such as [Ragas](https://docs.ragas.io/) offer metrics for this purpose.
+
+These are not strictly AI problems. They are questions of data governance and software architecture: who owns a document, how it is updated, how its status is recorded, and how the application uses that information. The [Microsoft Learn overview of retrieval-augmented generation](https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview) describes how the retrieval and indexing side of such systems is designed, and it is a useful reference for these architectural choices.
+
 ## The Model Is Only One Part of the Answer
 
-RAG gives a language model access to relevant information at the moment it answers. That can make a large document collection easier to use, but the result depends on the complete system: the quality of the source files, the way they are prepared, the passages retrieval selects, and the checks applied to the generated response.
+RAG gives a language model access to relevant information at the moment it answers. That can make a large document collection easier to use, but the result depends on the complete system: the quality of the source files, the way they are prepared, how versions and sources are governed, the passages retrieval selects, and the checks applied to the generated response.
 
 In practice, the most useful question is not only “Which model should we use?” It is also “Can we retrieve the right evidence, show where it came from, and verify the answer before someone relies on it?”
+
+Before investing in a more powerful model, it is probably worth improving the quality and organization of the information we give it. Sometimes, improving an AI application has very little to do with the AI itself.
